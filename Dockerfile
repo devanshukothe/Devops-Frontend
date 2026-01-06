@@ -1,4 +1,4 @@
-FROM node:alpine3.18 AS build
+FROM node:22.12-alpine
 
 WORKDIR /app
 
@@ -10,3 +10,7 @@ RUN npm install
 COPY . .
 
 RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npx", "vite", "preview", "--host", "0.0.0.0", "--port", "3000"]
