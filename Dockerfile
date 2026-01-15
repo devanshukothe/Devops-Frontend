@@ -1,4 +1,4 @@
-FROM node:alpine3.18 as build
+FROM node:18-alpine
 
 WORKDIR /app
 
@@ -6,12 +6,15 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm install
 
-# Copy project files
+# Copy source code
 COPY . .
 
-# Build React app
+# Build the Vite app
 RUN npm run build
 
+# Expose Vite preview port
 EXPOSE 3000
 
-CMD ["npm", "preview"]
+# Start Vite preview (important flags)
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3000"]
+
